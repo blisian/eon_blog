@@ -1,22 +1,18 @@
-// like.controller.ts
-import { Controller, Post, Body, BadRequestException } from '@nestjs/common';
-import { likeService } from './like.service';
+import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
+import { LikeService } from './like.service';
+import { LikePostDto } from './dto/like-post.dto';
 
 @Controller('like')
-export class likeController {
-  constructor(private readonly likeService: likeService) {}
+export class LikeController {
+    constructor(private readonly likeService: LikeService){}
 
-  @Post('recommend')
-  recommend(
-    @Body('us') userId: number,
-    @Body('postId') postId: number,
-    @Body('recommendationId') recommendationId: number,
-  ) {
-    if (!userId || !postId || !recommendationId) {
-      throw new BadRequestException('userId, postId, and recommendationId are required.');
+    @Post()
+    like(@Body() likePostDto:LikePostDto){
+        return this.likeService.like(likePostDto);
     }
 
-    this.likeService.recommend(userId, postId, recommendationId);
-    return { message: 'Recommendation recorded successfully.' };
-  }
+    @Delete(':lid')
+    remove(@Param('lid') lid:string){
+        return this.likeService.remove(+lid);
+    }
 }
