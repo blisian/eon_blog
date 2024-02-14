@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -11,7 +11,7 @@ export class AdminController {
         return this.adminService.findAll();
     }
 
-    @Get(':uid')
+    @Post(':uid')
     findOne(@Param('uid') uid: string){
         return this.adminService.findOne(+uid);
     }

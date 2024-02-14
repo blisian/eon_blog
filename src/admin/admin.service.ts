@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Admin } from './entities/admin.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { SearchUsersDto } from './dto/search-users.dto';
 
 @Injectable()
 export class AdminService {
@@ -20,9 +21,18 @@ export class AdminService {
         this.remove(uid);
         this.admins.push({ ...found, ...updateUserDto});
     }
+    
 
     remove(uid: number){
         this.findOne(uid);
         this.admins = this.admins.filter((u)=>u.uid!==uid);
+    }
+
+    async searchUsers(criteria: SearchUsersDto): Promise<Admin[]>{
+        const queryBuilder = this.findOne(+criteria);
+
+        if(criteria.name){
+            queryBuilder.name
+        }
     }
 }

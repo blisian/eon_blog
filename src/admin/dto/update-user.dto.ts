@@ -1,3 +1,3 @@
 export class UpdateUserDto {
-  userpower: number;
+  userpower?: number;
 }
