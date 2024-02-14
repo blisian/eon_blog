@@ -5,7 +5,7 @@ export class Post {
   @PrimaryGeneratedColumn({type: 'int'})
   pid: number;
 
-  @Column({type: 'int'})
+  @PrimaryColumn({type: 'int'})
   uid: number;
 
   @Column({type: 'text'})

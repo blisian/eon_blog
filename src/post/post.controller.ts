@@ -11,7 +11,6 @@ import {
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
-import { ReturnDocument } from 'typeorm';
 
 @Controller('post')
 export class PostController {
@@ -42,8 +41,9 @@ export class PostController {
     return this.postService.remove(+pid);
   }
 
-  @Get(':uid')
-  search(@Query('uid') uid: string){
-    return `uid : ${this.postService.search(+uid)}`;
+  @Get()
+  async search(@Query('uid') uid: number) {
+    const posts = await this.postService.search(uid);
+    return posts;
   }
 }

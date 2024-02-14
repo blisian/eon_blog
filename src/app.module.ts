@@ -8,10 +8,10 @@ import { typeORMConfigPost, typeORMConfigUser } from './configs/typeorm.config';
 
 @Module({
   imports: [
-      PostModule,
       TypeOrmModule.forRoot(typeORMConfigPost),
       TypeOrmModule.forRoot(typeORMConfigUser),
-      UserModule,
+      PostModule,
+      UserModule
   ],
   controllers: [AppController],
   providers: [AppService],

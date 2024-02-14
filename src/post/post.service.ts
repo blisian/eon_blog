@@ -30,7 +30,7 @@ export class PostService {
     return this.postRepository.deletePost(pid);
   }
 
-  async search(uid: number): Promise<Post>{
-    return this.postRepository.searchPostByUserId(uid);
+  async search(uid: number): Promise<Post[]>{
+    return this.postRepository.search(uid);
   }
 }

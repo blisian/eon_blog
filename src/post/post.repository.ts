@@ -47,11 +47,7 @@ export class PostRepository {
     await this.repository.delete(pid);
   }
 
-  async searchPostByUserId(uid: number): Promise<Post>{
-    const found = await this.repository.findOne({ where: { uid } });
-    if (!found) {
-      throw new NotFoundException('Post not found');
-    }
-    return found;
+  async search(uid: number): Promise<Post[]>{
+    return this.repository.find({ where: { uid } });
   }
 }
