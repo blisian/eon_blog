@@ -22,13 +22,18 @@ export class PostController {
   }
 
   @Get()
-  findAll() {
-    return this.postService.findAll();
+  search(@Query('uid') uid: string) {
+    return this.postService.search(+uid);
   }
 
   @Get(':pid')
   findOne(@Param('pid') pid: string) {
     return this.postService.findOne(+pid);
+  }
+
+  @Get()
+  findAll() {
+    return this.postService.findAll();
   }
 
   @Patch(':pid')
@@ -39,11 +44,5 @@ export class PostController {
   @Delete(':pid')
   remove(@Param('pid') pid: string) {
     return this.postService.remove(+pid);
-  }
-
-  @Get()
-  async search(@Query('uid') uid: number) {
-    const posts = await this.postService.search(uid);
-    return posts;
   }
 }

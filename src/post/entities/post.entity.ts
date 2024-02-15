@@ -1,11 +1,11 @@
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Post {
   @PrimaryGeneratedColumn({type: 'int'})
   pid: number;
 
-  @PrimaryColumn({type: 'int'})
+  @Column({type: 'int'})
   uid: number;
 
   @Column({type: 'text'})
@@ -14,10 +14,10 @@ export class Post {
   @Column({type: 'text'})
   content: string;
 
-  @Column({type: 'timestamp'})
+  @CreateDateColumn({type: 'timestamp'})
   createdDate: Date;
 
-  @Column({type: 'timestamp', default: null})
+  @UpdateDateColumn({type: 'timestamp', default: null})
   editDate?: Date;
 
   @Column({type: 'int'})

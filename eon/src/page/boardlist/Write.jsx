@@ -17,14 +17,22 @@ export default function Write() {
   const handleContentChange = (e) => {
     setContent(e.target.value);
   };
-
+  
   // submit 버튼을 클릭하면 axios.post 메소드를 호출합니다.
   const handleSubmit = async () => {
     try {
       const url = 'http://localhost:3000/post';
       // 데이터베이스의 API 엔드포인트와 데이터 객체를 인자로 넘깁니다.
+
+      /* const uid1 = await axios.get
+      (
+        url,
+        params: {uid:uid}
+      ) 
+*/
       const response = await axios.post
-      (url, 
+      (
+        url, 
         {
         uid:1,
         title: title,

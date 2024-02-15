@@ -48,6 +48,10 @@ export class PostRepository {
   }
 
   async search(uid: number): Promise<Post[]>{
-    return this.repository.find({ where: { uid } });
+    const posts = await this.repository.find({ where: { uid } });
+    if (!posts) {
+      throw new NotFoundException('Post not found');
+    }
+    return posts;
   }
 }
