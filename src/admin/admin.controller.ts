@@ -22,7 +22,7 @@ export class AdminController {
     }
 
     @Delete(':uid')
-    remove(@Param('uid') uid:string){
-        return this.adminService.remove(+uid);
+    remove(@Param('uid') uid:string,@Body() ){
+        return this.adminService.remove(,+uid);
     }
 }

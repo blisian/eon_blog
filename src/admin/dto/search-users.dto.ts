@@ -4,6 +4,6 @@ export class SearchUsersDto {
     // Define your search criteria fields
     // For example, searching by name, email, etc.
     name?: string;
-    email?: string;
+    uid?: number;
   }
   
