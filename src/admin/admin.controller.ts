@@ -7,15 +7,15 @@ import { SearchUsersDto } from './dto/search-users.dto';
 export class AdminController {
     constructor(private readonly adminService: AdminService) { }
 
-    @Post(':uid')
-    findOne(@Param('uid') uid: string) {
-        return this.adminService.findOne(+uid);
+    @Post(':auid')
+    findOne(@Param('auid') auid: string,@Body() searchUsersDto:SearchUsersDto ) {
+        return this.adminService.searchUser(+auid, searchUsersDto);
     }
 
-    @Patch(':uid')
-    userUpdate(@Param('uid') uid: string, @Body() updateUserDto: UpdateUserDto) {
-        return this.adminService.updateRole(+uid, updateUserDto);
-    }
+    // @Patch(':uid')
+    // userUpdate(@Param('uid') uid: string, @Body() updateUserDto: UpdateUserDto) {
+    //     return this.adminService.updateRole(+uid, updateUserDto);
+    // }
 
     @Delete(':auid')
     remove(@Param('auid') auid: string, @Body() uid: string) {
