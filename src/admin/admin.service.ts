@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Admin } from './entities/admin.entity';
 import { SearchUsersDto } from './dto/search-users.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 // import { UpdateUserDto } from './dto/update-user.dto';
 
 
@@ -18,40 +19,40 @@ export class AdminService {
         if(!found) throw new NotFoundException();
         return found;
     }
-    // updateRole(uid:number, updateUserDto:UpdateUserDto){
-    //     const found = this.findOne(uid);
-    //     this.remove(uid);
-    //     this.admins.push({ ...found, ...updateUserDto});
-    // }
+    updateRole(uid:number, updateUserDto:UpdateUserDto){
+        // const found = this.findOne(updateUserDto.uid);
+        // this.remove(uid,updateUserDto);
+        // this.admins.push({ ...found, ...updateUserDto});
+    }
     
 
-    remove(auid:number ,uid: number){
-        if(!this.isAdmin(auid))  throw new NotFoundException();
-        this.findOne(uid);
-        this.admins = this.admins.filter((u)=>u.uid!==uid);
+    remove(uid:number, searchUsersDto:SearchUsersDto){
+        if(!this.isAdmin(uid))  throw new NotFoundException();
+        this.findOne(searchUsersDto.uid);
+        this.admins = this.admins.filter((u)=>u.uid!==searchUsersDto.uid);
     }
     
     isAdmin(uid: number){
         return uid === this.adminUID;
     }
 
-    searchUser(auid:number ,searchUsersDto:SearchUsersDto){
-        const {name, uid} = searchUsersDto;
+    searchUser(uid:number, searchUsersDto:SearchUsersDto){
+        // const {auid, name, uid} = searchUsersDto;
 
-        if(!this.isAdmin(auid)){ //admin User ID
+        if(!this.isAdmin(uid)){ //admin User ID
             throw new NotFoundException();
         }
         const found = this.admins.find((u)=>{
-            if (name && uid) {
-                return u.name === name && u.uid === uid;
+            if (searchUsersDto.name && searchUsersDto.uid) {
+                return u.name === searchUsersDto.name && u.uid === searchUsersDto.uid;
               }
               // 검색 조건이 name만 제공될 경우
-              else if (name) {
-                return u.name === name;
+              else if (searchUsersDto.name) {
+                return u.name === searchUsersDto.name;
               }
               // 검색 조건이 uid 제공될 경우
-              else if (uid) {
-                return u.uid === uid;
+              else if (searchUsersDto.uid) {
+                return u.uid === searchUsersDto.uid;
               }
               // 검색 조건이 없을 경우 모든 사용자 반환 (이 부분은 요구사항에 따라 조정할 수 있음)
               else return false;
