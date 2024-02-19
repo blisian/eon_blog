@@ -22,18 +22,23 @@ export class PostController {
   }
 
   @Get()
-  search(@Query('uid') uid: string) {
-    return this.postService.search(+uid);
+  findPost(@Query() query: any) {
+  if(query.uid){
+    return this.postService.search(query.uid);
+  } else if (query.title) {
+    return this.postService.findTitle(query.title);
+  } else if (query.writer) {
+    return this.postService.findWriter(query.writer);
+  } else if (query.content) {
+    return this.postService.findContent(query.content);
+  } else {
+    return this.postService.findAll();
+  }
   }
 
   @Get(':pid')
   findOne(@Param('pid') pid: string) {
     return this.postService.findOne(+pid);
-  }
-
-  @Get()
-  findAll() {
-    return this.postService.findAll();
   }
 
   @Patch(':pid')

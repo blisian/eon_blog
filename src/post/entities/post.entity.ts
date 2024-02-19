@@ -11,6 +11,9 @@ export class Post {
   @Column({type: 'text'})
   title: string;
 
+  @Column({type: 'varchar'})
+  writer: string;
+
   @Column({type: 'text'})
   content: string;
 

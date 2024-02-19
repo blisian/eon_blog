@@ -8,7 +8,7 @@ import { typeORMConfigUser } from 'src/configs/typeorm1.config';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User], 'userDB'),
     TypeOrmModule.forRoot(typeORMConfigUser)
   ],
   exports: [TypeOrmModule, UserRepository],

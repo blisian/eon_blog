@@ -1,6 +1,8 @@
 import { Column, Entity, PrimaryColumn} from "typeorm";
 
-@Entity()
+@Entity({
+  database: 'user', name:'user'
+})
 export class User {
   @PrimaryColumn({type: 'int'})
   uid: number;

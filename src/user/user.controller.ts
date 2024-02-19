@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Patch, Post } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserDto } from './dto/user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -8,8 +8,13 @@ export class UserController {
     constructor(private readonly userService: UserService) {}
     
     @Post()
-    create(@Body() createPostDto: UserDto) {
-      return this.userService.create(createPostDto);
+    async create(@Body() createPostDto: UserDto) {
+      const emails = await this.userService.findEmailCheck(createPostDto.email)
+      if(emails != undefined){
+        throw new HttpException('duplicated email', HttpStatus.BAD_REQUEST);
+      } else{
+        return this.userService.create(createPostDto);
+      }
     }
 
     @Get(':uid')

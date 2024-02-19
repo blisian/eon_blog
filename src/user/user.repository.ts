@@ -8,9 +8,14 @@ import { UpdateUserDto } from './dto/update-user.dto';
 @Injectable()
 export class UserRepository {
   constructor(
-    @InjectRepository(User)
-    private readonly repository: Repository<User>
+    @InjectRepository(User, 'userDB')
+    private readonly repository: Repository<User>,
   ) {}
+
+  async findEmailCheck(email: string): Promise<User>{
+    const emails = await this.repository.findOne({ where: { email }});
+    return emails;
+  }
 
   async createUser(dto: UserDto): Promise<User> {
     const user = this.repository.create({

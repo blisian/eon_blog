@@ -37,6 +37,7 @@ export default function Write() {
         uid:1,
         title: title,
         content: content,
+        writer:"song",
         type: "assignment1",
         file: "www.",
         picture: "www."

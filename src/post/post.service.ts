@@ -14,12 +14,28 @@ export class PostService {
     return this.postRepository.createPost(dto);
   }
 
-  async findAll(): Promise<Post[]> {
-    return this.postRepository.findAllPosts();
+  async search(uid: number): Promise<Post[]>{
+    return this.postRepository.search(uid);
+  }
+  
+  async findTitle(title: string): Promise<Post[]>{
+    return this.postRepository.findTitle(title);
+  }
+
+  async findWriter(writer: string): Promise<Post[]>{
+    return this.postRepository.findWriter(writer);
+  }
+
+  async findContent(content: string): Promise<Post[]>{
+    return this.postRepository.findContent(content);
   }
 
   async findOne(pid: number): Promise<Post> {
     return this.postRepository.findPostById(pid);
+  }
+
+  async findAll(): Promise<Post[]> {
+    return this.postRepository.findAllPosts();
   }
 
   async update(pid: number, dto: UpdatePostDto): Promise<Post> {
@@ -28,9 +44,5 @@ export class PostService {
 
   async remove(pid: number): Promise<void> {
     return this.postRepository.deletePost(pid);
-  }
-
-  async search(uid: number): Promise<Post[]>{
-    return this.postRepository.search(uid);
   }
 }

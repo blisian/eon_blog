@@ -9,6 +9,10 @@ export class UserService {
   constructor(
     private readonly userRepository: UserRepository
   ) {}
+  
+  async findEmailCheck(email: string): Promise<User>{
+    return this.userRepository.findEmailCheck(email);
+  }
 
   async create(dto: UserDto): Promise<User> {
     return this.userRepository.createUser(dto);
