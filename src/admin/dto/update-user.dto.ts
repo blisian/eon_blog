@@ -1,4 +1,5 @@
 export class UpdateUserDto {
   uid: number;
-  userpower?: { };
+  name: string;
+  role: string[];
 }

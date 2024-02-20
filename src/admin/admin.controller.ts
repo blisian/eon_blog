@@ -7,20 +7,22 @@ import { SearchUsersDto } from './dto/search-users.dto';
 export class AdminController {
     constructor(private readonly adminService: AdminService) { }
     @Get()
+    findAll(@Body() aid:string){
+        return this.adminService.findAll(+aid);
+    }
     
-    
-    @Post(':uid')
-    findOne(@Param('uid') uid:string, @Body() searchUsersDto:SearchUsersDto ) {
-        return this.adminService.searchUser(+uid, searchUsersDto);
+    @Post('search')
+    findOne(@Body() searchUsersDto:SearchUsersDto ) {
+        return this.adminService.searchUser(searchUsersDto);
     }
 
-    @Post(':uid')
-    updateRole(@Param('uid') uid: string, @Body() updateUserDto: UpdateUserDto) {
-        return this.adminService.updateRole(+uid, updateUserDto);
+    @Post('user') 
+    updateRole(@Body() updateUserDto: UpdateUserDto) {
+        return this.adminService.updateRole(updateUserDto);
     }
 
-    @Delete(':uid')
-    remove(@Param('uid') uid:string, @Body() removeUsersDto:SearchUsersDto) {
-        return this.adminService.remove(+uid,removeUsersDto);
+    @Delete('user')
+    remove(@Body() removeUsersDto:SearchUsersDto) {
+        return this.adminService.remove(removeUsersDto);
     }
 }

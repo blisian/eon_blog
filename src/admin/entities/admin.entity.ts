@@ -6,4 +6,5 @@ export class Admin {
     period: number;
     phone: number;
     name: string;
+    role: string[];
 }
