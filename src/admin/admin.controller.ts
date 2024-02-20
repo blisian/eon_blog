@@ -6,14 +6,16 @@ import { SearchUsersDto } from './dto/search-users.dto';
 @Controller('admin')
 export class AdminController {
     constructor(private readonly adminService: AdminService) { }
-
+    @Get()
+    
+    
     @Post(':uid')
     findOne(@Param('uid') uid:string, @Body() searchUsersDto:SearchUsersDto ) {
         return this.adminService.searchUser(+uid, searchUsersDto);
     }
 
     @Post(':uid')
-    userUpdate(@Param('uid') uid: string, @Body() updateUserDto: UpdateUserDto) {
+    updateRole(@Param('uid') uid: string, @Body() updateUserDto: UpdateUserDto) {
         return this.adminService.updateRole(+uid, updateUserDto);
     }
 

@@ -9,6 +9,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class AdminService {
     private admins: Array<Admin> = [];
     private readonly adminUID = 1;
+    private readonly data = {'auid':1, 'name':'MJ', 'email': 0 };
     
     // findAll(){
     //     return [...this.admins];
