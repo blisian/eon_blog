@@ -22,7 +22,7 @@ export class AdminController {
     }
 
     @Delete('user')
-    remove(@Body() removeUsersDto:SearchUsersDto) {
+    removeUser(@Body() removeUsersDto:SearchUsersDto) {
         return this.adminService.remove(removeUsersDto);
     }
 }

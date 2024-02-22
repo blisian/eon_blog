@@ -17,42 +17,44 @@ export class AdminService {
     };
 
     findAll(uid: number) {
-        if (!this.isAdmin(uid)) {
-            throw new NotFoundException("Access Denied");
-        }
-        return [...this.admins]; //is admin추가중이였음.
+        this.isAdmin(uid);
+        return [...this.admins];
     }
 
-    findName(name: string) {
-        const found = this.admins.find((u) => u.name === name);
-        if (!found) throw new NotFoundException();
-        return found;
-    }
+    // findOne(searchUsersDto:SearchUsersDto) {
+    //     this.isAdmin(searchUsersDto.auid);
+    //     if(!searchUsersDto.name){
+
+    //     }
+    //     const found = this.admins.find((u) => u.name === searchUsersDto.name);
+    //     if (!found) throw new NotFoundException();
+    //     return found;
+    // }
+
     updateRole(updateUserDto: UpdateUserDto) {
         if (!updateUserDto.name) {
-            const found = this.findName(updateUserDto.name);
-            this.remove(updateUserDto.role);
-            this.admins.push({ ...found, ...updateUserDto });
+            const found = this.searchUser(updateUserDto);
+            this.remove(updateUserDto);
+            this.admins.push({ ...found, ...updateUserDto.role });
         }
     }
 
-
-    remove(role: string[]) {
-        if (!this.isAdmin(searchUsersDto.uid)) throw new NotFoundException();
-        this.findOne(searchUsersDto.uid);
-        this.admins = this.admins.filter((u) => u.uid !== searchUsersDto.uid);
+    remove(removeUsersDto: SearchUsersDto ) {
+        this.isAdmin(removeUsersDto.auid);
+        // this.searchUser(removeUsersDto);
+        this.admins = this.admins.filter((u) => u.uid !== removeUsersDto.uid);
     }
 
     isAdmin(uid: number) {
-        return uid === this.adminUID;
+        if (uid !== this.adminUID) {
+            throw new NotFoundException("Access Denied");
+        }
     }
 
     searchUser(searchUsersDto: SearchUsersDto) {
         // const {auid, name, uid} = searchUsersDto;
+        this.isAdmin(searchUsersDto.auid);
 
-        if (!this.isAdmin(uid)) { //admin User ID
-            throw new NotFoundException();
-        }
         const found = this.admins.find((u) => {
             if (searchUsersDto.name && searchUsersDto.uid) {
                 return u.name === searchUsersDto.name && u.uid === searchUsersDto.uid;
@@ -66,7 +68,7 @@ export class AdminService {
                 return u.uid === searchUsersDto.uid;
             }
             // 검색 조건이 없을 경우 모든 사용자 반환 (이 부분은 요구사항에 따라 조정할 수 있음)
-            else return false;
+            else return [];
         });
         if (!found) throw new NotFoundException();
         return found;
