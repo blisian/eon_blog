@@ -7,14 +7,19 @@ import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class AdminService {
-    private admins: Array<Admin> = []; //admins = user database
+    private admins: Array<Admin> = [
+        {
+            uid: 1,
+            level: 1,
+            name: 'MJ',
+            email: 'mj@example.com', // 이메일은 문자열로 표현
+            role: ['1', '2', '3'],
+            period: 1,
+            phone: '01021077455',
+    // sid: number;
+        }
+    ]; //admins = user database
     private readonly adminUID = 1;
-    private readonly data = {
-        auid: 1,
-        name: 'MJ',
-        email: 'mj@example.com', // 이메일은 문자열로 표현
-        role: ['1', '2', '3']
-    };
 
     findAll(uid: number) {
         this.isAdmin(uid);
@@ -40,9 +45,9 @@ export class AdminService {
     }
 
     remove(removeUsersDto: SearchUsersDto ) {
-        this.isAdmin(removeUsersDto.auid);
+        this.isAdmin(removeUsersDto.uid);
         // this.searchUser(removeUsersDto);
-        this.admins = this.admins.filter((u) => u.uid !== removeUsersDto.uid);
+        this.admins = this.admins.filter((u) => u.uid !== removeUsersDto.sid);
     }
 
     isAdmin(uid: number) {
@@ -53,19 +58,19 @@ export class AdminService {
 
     searchUser(searchUsersDto: SearchUsersDto) {
         // const {auid, name, uid} = searchUsersDto;
-        this.isAdmin(searchUsersDto.auid);
+        this.isAdmin(searchUsersDto.uid);
 
         const found = this.admins.find((u) => {
-            if (searchUsersDto.name && searchUsersDto.uid) {
-                return u.name === searchUsersDto.name && u.uid === searchUsersDto.uid;
+            if (searchUsersDto.name && searchUsersDto.sid) {
+                return u.name === searchUsersDto.name && u.sid === searchUsersDto.sid;
             }
             // 검색 조건이 name만 제공될 경우
             else if (searchUsersDto.name) {
                 return u.name === searchUsersDto.name;
             }
             // 검색 조건이 uid 제공될 경우
-            else if (searchUsersDto.uid) {
-                return u.uid === searchUsersDto.uid;
+            else if (searchUsersDto.sid) {
+                return u.uid === searchUsersDto.sid;
             }
             // 검색 조건이 없을 경우 모든 사용자 반환 (이 부분은 요구사항에 따라 조정할 수 있음)
             else return [];

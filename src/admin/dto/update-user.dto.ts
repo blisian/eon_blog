@@ -1,6 +1,6 @@
 export class UpdateUserDto {
-  auid: number;
-  uid?: number;
+  uid: number;
+  sid?: number;
   name?: string;
   role: string[];
 }

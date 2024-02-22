@@ -2,9 +2,9 @@ export class Admin {
     uid: number;
     email: string;
     level: number;
-    sid: number;
+    // sid: number;
     period: number;
-    phone: number;
+    phone?: string;
     name: string;
-    role: string[];
+    role?: string[];
 }

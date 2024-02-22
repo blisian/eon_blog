@@ -3,8 +3,8 @@
 export class SearchUsersDto {
   // Define your search criteria fields
   // For example, searching by name, email, etc.
-  auid: number;
+  uid: number;
   name?: string;
-  uid?: number;
+  sid?: number;
   role?: string[];
 }
