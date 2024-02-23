@@ -62,7 +62,7 @@ export class AdminService {
 
         const found = this.admins.find((u) => {
             if (searchUsersDto.name && searchUsersDto.sid) {
-                return u.name === searchUsersDto.name && u.sid === searchUsersDto.sid;
+                return u.name === searchUsersDto.name && u.uid === searchUsersDto.sid;
             }
             // 검색 조건이 name만 제공될 경우
             else if (searchUsersDto.name) {
