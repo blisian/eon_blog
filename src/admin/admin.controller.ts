@@ -7,8 +7,8 @@ import { SearchUsersDto } from './dto/search-users.dto';
 export class AdminController {
     constructor(private readonly adminService: AdminService) { }
     @Get()
-    findAll(@Body() aid:string){
-        return this.adminService.findAll(+aid);
+    findAll(@Body() uid:string){
+        return this.adminService.findAll(+uid);
     }
     
     @Post('search')

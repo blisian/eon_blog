@@ -22,7 +22,7 @@ export class AdminService {
     private readonly adminUID = 1;
 
     findAll(uid: number) {
-        this.isAdmin(uid);
+        // this.isAdmin(uid); jwt 인증 방식을 써야 될 듯
         return [...this.admins];
     }
 
