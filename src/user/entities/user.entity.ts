@@ -1,30 +1,67 @@
-import { Column, Entity, PrimaryColumn} from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { Exclude } from 'class-transformer';
+import { Token } from './token.entity';
+import { IsDateString, IsEnum, IsNumber, IsString } from 'class-validator';
 
-@Entity({
-  database: 'user', name:'user'
-})
-export class User {
-  @PrimaryColumn({type: 'int'})
-  uid: number;
+export enum Role {
+  Admin = 'admin',
+}
 
-  @Column({type: 'varchar'})
-  email: string;
+export class UserDto {
+  @IsNumber()
+  id: number;
 
-  @Column({type: 'int'})
-  level: number; 
-
-  @Column({type: 'int'})
-  studentId: number; //학번
-
-  @Column({type: 'int'})
-  period: number;
-
-  @Column({type: 'int'})
-  phoneNumber: number;
-
-  @Column({type: 'varchar'})
+  @IsString()
   name: string;
 
-  @Column({type: 'timestamp'})
-  creationDate: Date;
+  @IsString()
+  email: string;
+  @IsEnum(Role)
+  role: Role;
+
+  @IsDateString()
+  createdAt: Date;
+
+  @IsDateString()
+  updatedAt: Date;
+}
+
+@Entity()
+export class User {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  name: string;
+
+  @Column()
+  email: string;
+
+  @Column({ type: 'enum', enum: Role, nullable: true })
+  role: Role;
+
+  @Exclude()
+  @OneToOne(() => Token, (token) => token.user)
+  token: Token;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
+
+  constructor(partial: Partial<User>) {
+    Object.assign(this, partial);
+  }
 }

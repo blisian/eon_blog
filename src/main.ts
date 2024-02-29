@@ -1,23 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { Interceptor } from './common/interceptor';
+import { MiddleExceptionFilter } from './common/filter/middle.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors({
-    origin: true, //어떤 오리진과 연동?
-    credentials: true, //쿠키 및 인증 헤더
-    exposedHeaders: ['Authorization'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-  }); 
-  const config = new DocumentBuilder()
-    .setTitle('Posts API')
-    .setDescription('The is a sample REST API')
-    .setVersion('1.0')
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  app.useGlobalFilters(new MiddleExceptionFilter());
+  app.useGlobalInterceptors(new Interceptor());
   await app.listen(3000);
 }
 bootstrap();
