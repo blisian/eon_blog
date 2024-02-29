@@ -13,5 +13,5 @@ export const typeORMConfigUser : TypeOrmModuleOptions= {
         User
       ],
     synchronize: true,
-    logging: true
+    //logging: true
 }
