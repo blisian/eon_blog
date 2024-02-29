@@ -14,11 +14,11 @@ import { ReplyModule } from './reply/reply.module';
 import { AdminService } from './admin/admin.service';
 import { AdminController } from './admin/admin.controller';
 import { AdminModule } from './admin/admin.module';
-import { UserModule } from './user/user.module';
+
 
 
 @Module({
-  imports: [PostModule, LikeModule, CommentModule, ReplyModule, AdminModule, UserModule],
+  imports: [PostModule, LikeModule, CommentModule, ReplyModule, AdminModule],
   controllers: [AppController, LikeController, CommentController, ReplyController, AdminController],
   providers: [AppService, LikeService, CommentService, ReplyService, AdminService],
 })

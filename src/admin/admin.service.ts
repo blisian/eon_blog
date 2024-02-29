@@ -13,9 +13,9 @@ export class AdminService {
             level: 1,
             name: 'MJ',
             email: 'mj@example.com', // 이메일은 문자열로 표현
-            role: ['1', '2', '3'],
+            role: ['1', '2', 'admin'],
             period: 1,
-            phone: '01021077455',
+            phone: '01021077455'
     // sid: number;
         }
     ]; //admins = user database
