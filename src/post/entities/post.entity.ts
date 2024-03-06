@@ -1,3 +1,16 @@
+/*<<<<<<< mjBranchTest
+export class Post {
+  pid: number;
+  uid: number;
+  title: string;
+  content: string;
+  createdDate: Date;
+  editDate?: Date;
+  recommand: number;
+  check: number;
+  type: string;
+  file?: string;
+=======*/
 import { Column, CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
@@ -36,5 +49,6 @@ export class Post {
   file?: string;
 
   @Column({type: 'varchar', default: null})
+//>>>>>>> mjMainTest
   picture?: string;
 }

@@ -22,6 +22,11 @@ export class PostController {
   }
 
   @Get()
+/*<<<<<<< mjBranchTest
+  findAll() {
+    return this.postService.findAll();
+  }
+=======*/
   findPost(@Query() query: any) {
   if(query.uid){
     return this.postService.search(query.uid);
@@ -35,6 +40,7 @@ export class PostController {
     return this.postService.findAll();
   }
   }
+//>>>>>>> mjMainTest
 
   @Get(':pid')
   findOne(@Param('pid') pid: string) {
