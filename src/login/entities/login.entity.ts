@@ -1,8 +1,9 @@
+
 export class Login {
-    name:string
-    phone:string
-    studentId:number
-    gisu:number
-    hobby?:string
-  }
-  
+  uid: number;
+  name: string;
+  studentId: number; //학번
+  period: number;
+  phoneNumber: number;
+  hobby?: string;
+}

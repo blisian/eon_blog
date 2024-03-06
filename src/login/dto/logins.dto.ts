@@ -1,8 +1,8 @@
 export class LoginsDto {
-  uid: number;
-  title: string;
-  content: string;
-  type: string;
-  file?: string;
-  picture?: string;
+  name: string;
+  studentId: number; //학번
+  period: number;
+  phoneNumber: number;
+  hobby?:string;  
 }
+
