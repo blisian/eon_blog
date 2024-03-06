@@ -1,9 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { Interceptor } from './common/interceptor';
+import { MiddleExceptionFilter } from './common/filter/middle.filter';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.useGlobalFilters(new MiddleExceptionFilter());
+  app.useGlobalInterceptors(new Interceptor());
   app.enableCors({
     origin: true, //어떤 오리진과 연동?
     credentials: true, //쿠키 및 인증 헤더
@@ -18,6 +22,17 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+  await app.listen(3000);
+}
+bootstrap();
+
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+
   await app.listen(3000);
 }
 bootstrap();
