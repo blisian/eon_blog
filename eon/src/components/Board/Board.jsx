@@ -6,18 +6,29 @@ import BoardListNav from "./BoardListNav";
 
 export default function Board() {
   // 데이터 상태 초기화 및 더미 데이터 채우기
-  const [data] = useState([
-    { id: 1, title: "First Post", author: "John Doe", date: "2024-02-07" },
-    { id: 2, title: "Second Post", author: "Jane Smith", date: "2024-02-06" },
-    // 추가적인 더미 데이터를 필요에 따라 채워넣을 수 있습니다.
-  ]);
+  const [data, setPostData] = useState([]);
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        const url = 'http://localhost:3000/post';
+        const response = await axios.get(
+          url
+          );
+        setPostData(response.data); // 데이터베이스에서 받은 데이터로 상태 업데이트
+      } catch (error) {
+        console.error('Post data failed', error);
+      }
+    }
+    getData();
+  }, []);
 
   const columns = useMemo(
     () => [
-      { Header: "#", accessor: "id" },
-      { Header: "Title", accessor: "title" }, // 글 제목 변경
-      { Header: "Author", accessor: "author" }, // 올린 사람 변경
-      { Header: "Date", accessor: "date" }, // 올린 날짜 변경
+      { Header: "글 순서", accessor: "pid" },
+      { Header: "제목", accessor: "title" }, // 글 제목 변경
+      { Header: "작성자", accessor: "writer" }, // 올린 사람 변경
+      { Header: "생성 날짜", accessor: "createdDate" }, // 올린 날짜 변경
     ],
     []
   );
@@ -25,6 +36,7 @@ export default function Board() {
   const tableInstance = useTable({ columns, data });
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
+  
 
   return (
     <div style={{ display: 'flex' }}>
@@ -55,7 +67,7 @@ export default function Board() {
             })}
           </tbody>
         </Table>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end" style={{ position: 'absolute', left: '0', bottom: '0', marginBottom: '10px', marginLeft: '10px' }}>
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end" style={{ position: 'absolute', left: '0', bottom: '1', marginBottom: '10px', marginLeft: '10px' }}>
           <a
             href="/boardlist/write"
             className="text-sm font-semibold leading-6 text-gray-900"
