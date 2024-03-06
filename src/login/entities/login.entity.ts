@@ -1,4 +1,3 @@
-
 export class Login {
   uid: number;
   name: string;
