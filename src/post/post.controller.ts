@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
@@ -13,7 +14,7 @@ import { UpdatePostDto } from './dto/update-post.dto';
 
 @Controller('post')
 export class PostController {
-  constructor(private readonly postService: PostService) { }
+  constructor(private readonly postService: PostService) {}
 
   @Post()
   create(@Body() createPostDto: CreatePostDto) {
@@ -21,9 +22,25 @@ export class PostController {
   }
 
   @Get()
+/*<<<<<<< mjBranchTest
   findAll() {
     return this.postService.findAll();
   }
+=======*/
+  findPost(@Query() query: any) {
+  if(query.uid){
+    return this.postService.search(query.uid);
+  } else if (query.title) {
+    return this.postService.findTitle(query.title);
+  } else if (query.writer) {
+    return this.postService.findWriter(query.writer);
+  } else if (query.content) {
+    return this.postService.findContent(query.content);
+  } else {
+    return this.postService.findAll();
+  }
+  }
+//>>>>>>> mjMainTest
 
   @Get(':pid')
   findOne(@Param('pid') pid: string) {

@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PostModule } from './post/post.module';
+
 import { LikeService } from './like/like.service';
 import { LikeController } from './like/like.controller';
 import { LikeModule } from './like/like.module';
@@ -14,11 +15,25 @@ import { ReplyModule } from './reply/reply.module';
 import { AdminService } from './admin/admin.service';
 import { AdminController } from './admin/admin.controller';
 import { AdminModule } from './admin/admin.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
+import { typeORMConfigPost } from './configs/typeorm.config';
+import { typeORMConfigUser } from './configs/typeorm1.config';
 
+
+/*@Module({
+  imports: [PostModule, LikeModule, CommentModule, ReplyModule, AdminModule],
+  controllers: [AppController, LikeController, CommentController, ReplyController, AdminController],
+  providers: [AppService, LikeService, CommentService, ReplyService, AdminService],*/
 
 
 @Module({
-  imports: [PostModule, LikeModule, CommentModule, ReplyModule, AdminModule],
+  imports: [
+      TypeOrmModule.forRoot(typeORMConfigPost),
+      TypeOrmModule.forRoot(typeORMConfigUser),
+      PostModule,
+      UserModule, LikeModule, CommentModule, ReplyModule, AdminModule
+  ],
   controllers: [AppController, LikeController, CommentController, ReplyController, AdminController],
   providers: [AppService, LikeService, CommentService, ReplyService, AdminService],
 })

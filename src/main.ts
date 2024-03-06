@@ -4,6 +4,13 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: true, //어떤 오리진과 연동?
+    credentials: true, //쿠키 및 인증 헤더
+    exposedHeaders: ['Authorization'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }); 
   const config = new DocumentBuilder()
     .setTitle('Posts API')
     .setDescription('The is a sample REST API')
