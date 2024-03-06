@@ -41,6 +41,18 @@ export class AuthService {
         Accept: 'application/json',
       },
     });
+
+    // if (res.status !== 200) {
+    //   throw new CommonException('AUTH', 'GITHUB_OAUTH_FAILED');
+    // }
+    // const res2 = await fetch('https://api.github.com/user/emails', {
+    //   method: 'post',
+    //   body: JSON.stringify(body),
+    //   headers: {
+    //     Authorization: 'Bearer' + res.json().acccess_token,
+    //     Accept: 'application/json',
+    //   },
+    // });
     const data = await res.json();
     console.log(data);
 
@@ -51,4 +63,10 @@ export class AuthService {
 export interface Payload {
   id: number;
   exp: any;
+}
+
+export interface TokenPayload {
+  access_token: string;
+  token_type: string;
+  scope: string;
 }

@@ -28,11 +28,19 @@ export class UserService {
       createUserDto.email,
     );
     const didEncryptName = await this.cryptoManager.encrypt(createUserDto.name);
+    const didEncryptPhone = await this.cryptoManager.encrypt(
+      createUserDto.phone,
+    );
+    const didEncryptSid = await this.cryptoManager.encrypt(createUserDto.sid);
+    const didEncryptPeriod = await this.cryptoManager.encrypt(
+      createUserDto.period,
+    );
 
     const user = await this.userRepository.findOne({
       where: {
         email: didEncryptEmail,
-        name: didEncryptName,
+        phone: didEncryptPhone,
+        sid: didEncryptSid,
       },
     });
 
@@ -43,21 +51,25 @@ export class UserService {
     const didCreateUser = await this.userRepository.save({
       email: didEncryptEmail,
       name: didEncryptName,
+      phone: didEncryptPhone,
+      sid: didEncryptSid,
+      period: didEncryptPeriod,
     });
     didCreateUser.email = createUserDto.email;
     didCreateUser.name = createUserDto.name;
+    didCreateUser.phone = createUserDto.phone;
+    didCreateUser.sid = createUserDto.sid;
+    didCreateUser.period = createUserDto.period;
 
     return didCreateUser;
   }
 
   async signin(signinDto: SigninDto) {
     const didEncryptEmail = await this.cryptoManager.encrypt(signinDto.email);
-    const didEncryptName = await this.cryptoManager.encrypt(signinDto.name);
 
     const user = await this.userRepository.findOne({
       where: {
         email: didEncryptEmail,
-        name: didEncryptName,
       },
       relations: ['token'],
     });
@@ -94,7 +106,6 @@ export class UserService {
     });
 
     user.email = signinDto.email;
-    user.name = signinDto.name;
 
     return {
       ...user,
@@ -113,7 +124,6 @@ export class UserService {
     const temp = await this.userRepository.findOne({
       where: {
         email: user.email,
-        name: user.name,
       },
       relations: ['token'],
     });

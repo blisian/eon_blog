@@ -9,7 +9,13 @@ import {
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { Token } from './token.entity';
-import { IsDateString, IsEnum, IsNumber, IsString } from 'class-validator';
+import {
+  IsDateString,
+  IsEnum,
+  IsNumber,
+  IsNumberString,
+  IsString,
+} from 'class-validator';
 
 export enum Role {
   Admin = 'admin',
@@ -22,8 +28,18 @@ export class UserDto {
   @IsString()
   name: string;
 
+  @IsNumberString()
+  period: string;
+
+  @IsNumberString()
+  phone: string;
+
+  @IsNumberString()
+  sid: string;
+
   @IsString()
   email: string;
+
   @IsEnum(Role)
   role: Role;
 
@@ -41,6 +57,15 @@ export class User {
 
   @Column()
   name: string;
+
+  @Column()
+  period: string;
+
+  @Column()
+  sid: string;
+
+  @Column()
+  phone: string;
 
   @Column()
   email: string;
