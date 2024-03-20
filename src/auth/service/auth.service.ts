@@ -33,6 +33,7 @@ export class AuthService {
       client_secret: this.configService.get(EnvKey.GITHUB_SECRETS),
       code,
     };
+    console.log(JSON.stringify(body));
     const res = await fetch('https://github.com/login/oauth/access_token', {
       method: 'post',
       body: JSON.stringify(body),
@@ -40,23 +41,26 @@ export class AuthService {
         'Content-Type': 'application/json',
         Accept: 'application/json',
       },
+    }).then((res) => {
+      console.log(res);
+      return res.json();
     });
 
     // if (res.status !== 200) {
     //   throw new CommonException('AUTH', 'GITHUB_OAUTH_FAILED');
     // }
+    // const codes = await res.json();
+    // console.log(codes);
+
     // const res2 = await fetch('https://api.github.com/user/emails', {
     //   method: 'post',
     //   body: JSON.stringify(body),
     //   headers: {
-    //     Authorization: 'Bearer' + res.json().acccess_token,
+    //     Authorization: 'Bearer' + codes.access_token,
     //     Accept: 'application/json',
     //   },
     // });
-    const data = await res.json();
-    console.log(data);
-
-    return code;
+    // console.log(res2.json());
   }
 }
 

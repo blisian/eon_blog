@@ -13,8 +13,8 @@ async function bootstrap() {
     credentials: true, //쿠키 및 인증 헤더
     exposedHeaders: ['Authorization'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-  }); 
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  });
   const config = new DocumentBuilder()
     .setTitle('Posts API')
     .setDescription('The is a sample REST API')
@@ -22,17 +22,6 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-  await app.listen(3000);
-}
-bootstrap();
-
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-
-
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-
   await app.listen(3000);
 }
 bootstrap();
